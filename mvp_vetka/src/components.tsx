@@ -29,9 +29,11 @@ const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
                     Дизлайк
                 </button>
                 <button onClick={onLike} className = "LikeButton">
-                    Дизлайк
+                    Лайк
                 </button>
             </div>
         </div>
     )
 }
+
+export default ProfileMemberCard
