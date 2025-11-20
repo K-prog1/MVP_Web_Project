@@ -1,7 +1,7 @@
 import React from "react";
-import type { MemberData } from "../src/FakeData";
+import type { MemberData } from "./FakeData";
 
-interface ProfileMemberCardProps {
+ interface ProfileMemberCardProps {
     
     memberdata: MemberData;
     onLike: () => void;
@@ -10,7 +10,7 @@ interface ProfileMemberCardProps {
 
 }
 
-const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
+ const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
     
     memberdata,
     onLike,

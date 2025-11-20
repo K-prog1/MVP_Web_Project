@@ -1,6 +1,6 @@
-import MuscleITGuy from "@/assets/MuscleITGuy.jpg";
-import RobbyItGuy from "@/assets/RobbyItGuy.png";
-import GordenItSceintist from "@/assets/GordenItSceintist.jpg"
+import MuscleITGuy from "./assets/MuscleITGuy.jpg";
+import RobbyItGuy from "./assets/RobbyItGuy.png";
+import GordenItSceintist from "./assets/GordenItSceintist.jpg"
 
 export interface MemberData  {
     id:number
