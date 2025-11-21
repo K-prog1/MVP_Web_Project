@@ -20,8 +20,7 @@ const handleDislike = () => {
     <h1>Dating App</h1>
     <ProfileMemberCard 
       memberdata={membersdata[currentIndex]}
-      onLike={handleLike}
-      onDislike={handleDislike}
+      onLike={handleLike} onDislike={handleDislike}
     />
   </div>
 
