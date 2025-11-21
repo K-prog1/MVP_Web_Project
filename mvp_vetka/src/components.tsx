@@ -10,7 +10,7 @@ import type { MemberData } from "./FakeData";
 
 }
 
- const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
+export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
     
     memberdata,
     onLike,
@@ -36,4 +36,24 @@ import type { MemberData } from "./FakeData";
     )
 }
 
-export default ProfileMemberCard
+export default ProfileMemberCard;
+
+
+export const LoadingScreen: React.FC = () => {
+
+    return (
+        <div style = {{
+            
+            display: "flex",
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            backgroundColor: '#f0f0f0',
+            fontSize: '24px'
+        }}>
+            Зарузка...
+        </div>
+    );
+};
+
+
