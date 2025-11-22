@@ -1,16 +1,32 @@
+/** Style_profile-card **/
+
+body {
+    background-color: #dddbdb;
+    font-family: Arial, sans-serif;
+}
+
 .app {
   max-width: 500px;
   margin: 0 auto;
   padding: 30px;
-  font-family: Arial, sans-serif;
 }
 
 .profile-card {
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 100px;
   text-align: center;
   box-shadow: 0 1px 5px rgb(0, 0, 0);
+  background-color: #fff;
+}
+
+.profile-inform {
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.profile-elenments {
+    margin-bottom: 20px;
 }
 
 .profile-card img {
@@ -20,6 +36,8 @@
   object-fit: fill;
   margin-bottom: 15px;
 }
+
+/** Кнопки **/
 
 .actions {
   margin-top: 20px;
@@ -39,8 +57,27 @@
   color: white;
 }
 
+.actions :first-child:hover {
+    background-color: #d92c2c;
+    color: #e5e4e4;
+}
+
+.actions :first-child:active {
+  background-color: #ff4444;
+  color: white;
+}
+
 .actions button:last-child {
-  background-color: #44ff44;
+  background-color: #19bf1d;
   color: rgb(255, 255, 255);
 }
 
+.actions :last-child:hover {
+    background-color: #118113;
+    color: rgb(255, 255, 255);
+}
+
+.actions :last-child:active {
+    background-color: #2bbd2f;
+    color: rgb(255, 255, 255);
+}
