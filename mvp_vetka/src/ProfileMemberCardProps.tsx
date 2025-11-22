@@ -26,10 +26,10 @@ export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
             <p><strong>Обо мне:</strong>{memberdata.about}</p>
             <div className = 'actions'>
 
-                <button onClick={onDislike} className = "DislikeButton">
+                <button onClick={onDislike}>
                     Дизлайк
                 </button>
-                <button onClick={onLike} className = "LikeButton">
+                <button onClick={onLike}>
                     Лайк
                 </button>
             </div>
