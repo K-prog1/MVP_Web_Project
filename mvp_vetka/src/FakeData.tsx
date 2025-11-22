@@ -5,6 +5,7 @@ import GordenItSceintist from "./assets/GordenItSceintist.jpg"
 
 export interface MemberData  {
     id:number
+    WhatIlove:string;
     image:string; //укажем здесь путь изображения
     name:string;
     age:number;
@@ -15,6 +16,7 @@ export interface MemberData  {
 export const membersdata: MemberData[] = [
 {
     id:1,
+    WhatIlove:"Обожаю спорт и пп",
     image: MuscleITGuy,
     name:"Айтишникус",
     age:45,
@@ -23,6 +25,7 @@ export const membersdata: MemberData[] = [
 },
 {   
     id:2,
+    WhatIlove:"Обожаю делать ЗЛО",
     image: RobbyItGuy,
     name:"Робби",
     age:55,
@@ -31,6 +34,7 @@ export const membersdata: MemberData[] = [
 },
 {
     id:3,
+    WhatIlove:"Устраивать взрывы",
     image: GordenItSceintist,
     name:"Горден Фримен",
     age:35,

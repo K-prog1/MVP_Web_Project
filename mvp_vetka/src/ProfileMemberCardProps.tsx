@@ -22,6 +22,7 @@ export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
             <img src = {memberdata.image} alt = "Image not loaded"></img>
             <h2>{memberdata.name}, {memberdata.age}</h2>
             <p><strong>Компания:</strong>{memberdata.company}</p>
+            <p><strong>Что я люблю:</strong>{memberdata.WhatIlove}</p>
             <p><strong>Обо мне:</strong>{memberdata.about}</p>
             <div className = 'actions'>
 
@@ -37,23 +38,4 @@ export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
 }
 
 export default ProfileMemberCard;
-
-
-export const LoadingScreen: React.FC = () => {
-
-    return (
-        <div style = {{
-            
-            display: "flex",
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            backgroundColor: '#f0f0f0',
-            fontSize: '24px'
-        }}>
-            Зарузка...
-        </div>
-    );
-};
-
 

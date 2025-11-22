@@ -1,70 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import {ProfileMemberCard} from './components';
-import { LoadingScreen } from './components';
-import type  { MemberData } from './FakeData';
-import { membersdata } from './FakeData';
+import { ProfileMemberCard } from './ProfileMemberCardProps';
+import { membersdata, type MemberData } from './FakeData';
 import './App.css';
-
-
+import LoadingScreen from './LoadingScreen';
+import Header from './Header';
 
 function App() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const [users, setUsers] = useState<MemberData[]>([]);
 
-const handleLike = () => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setUsers(membersdata);
+            setIsLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
 
-    setCurrentIndex((prev) => ((prev +1)% membersdata.length));
-};
+    const handleLike = () => {
+        setCurrentIndex((prev) => (prev + 1) % membersdata.length);
+    };
 
-const handleDislike = () => {
+    const handleDislike = () => {
+        setCurrentIndex((prev) => (prev + 1) % membersdata.length);
+    };
 
-    setCurrentIndex((prev) => (prev +1)% membersdata.length);
-};
+    if (isLoading) {
+        return <LoadingScreen />;
+    }
+
     return (
-  <div className="app">
-    <h1>Dating App</h1>
-    <ProfileMemberCard 
-      memberdata={membersdata[currentIndex]}
-      onLike={handleLike} onDislike={handleDislike}
-    />
-  </div>
-
-);
+        <div className="app">
+            <Header />
+            <main className="main-content">
+                {users.length > 0 && currentIndex < users.length ? (
+                    <ProfileMemberCard 
+                        memberdata={users[currentIndex]}
+                        onLike={handleLike} 
+                        onDislike={handleDislike}
+                    />
+                ) : (
+                    <div className="no-users">
+                        <p>Нет доступных пользователей</p>
+                    </div>
+                )}
+            </main>
+        </div>
+    );
 }
 
 export default App;
-
-const FakeProfileData: MemberData = {
-
-    id:0,
-    image: "",
-    name:"None",
-    age:0,
-    company: "N/A",
-    about: "Данные загружаются"
-        
-    }
-
-
-export const LoadApp:React.FC = () => {
-  const[isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const FakeLoading = async () => {
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      setIsLoading(false);
-    };
-    FakeLoading();
-  }, []);
-  return (
-    <div className="LoadingFake">
-      {isLoading ? <LoadingScreen/>:
-      <ProfileMemberCard
-        memberdata ={FakeProfileData}
-        onDislike={()=>{}}
-        onLike={()=>{}}/>}
-    </div>
-  );
-};
 
 
 
