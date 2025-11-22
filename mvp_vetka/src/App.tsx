@@ -34,19 +34,13 @@ function App() {
         <div className="app">
             <Header />
             <main className="main-content">
-                {users.length > 0 && currentIndex < users.length ? (
                     <ProfileMemberCard 
                         memberdata={users[currentIndex]}
                         onLike={handleLike} 
                         onDislike={handleDislike}
                     />
-                ) : (
-                    <div className="no-users">
-                        <p>Нет доступных пользователей</p>
-                    </div>
-                )}
-            </main>
-        </div>
+              </main>
+          </div>
     );
 }
 
