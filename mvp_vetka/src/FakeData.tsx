@@ -46,7 +46,7 @@ export const membersdata: MemberData[] = [
 {
     id:4,
     interests:"3D-моделирование и прототипирование",
-    image: photo_3,
+    image: photo_4,
     name:"Антон",
     age:30,
     role:"Инженер",
