@@ -34,7 +34,7 @@ export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
                     </div>
                 </div>
                 <div className = 'actions'>
-                        <button onClick={onDislike} >
+                        <button onClick={onDislike}>
                             Дизлайк
                         </button>
                         <button onClick={onLike}>

@@ -11,10 +11,10 @@ body {
   padding: 30px;
 }
 
-.profile-card {
+.main-content {
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 100px;
+  height: 670px;
   text-align: center;
   box-shadow: 0 1px 5px rgb(0, 0, 0);
   background-color: #fff;
@@ -22,7 +22,9 @@ body {
 
 .profile-inform {
     text-align: left;
-    margin-bottom: 50px;
+    padding: 30px 20px 30px 60px;
+    height: 200px;
+
 }
 
 .profile-elenments {
@@ -35,13 +37,10 @@ body {
   border-radius: 50%;
   object-fit: fill;
   margin-bottom: 15px;
+  margin-top: 40px;
 }
 
 /** Кнопки **/
-
-.actions {
-  margin-top: 20px;
-}
 
 .actions button {
   margin: 0 10px;

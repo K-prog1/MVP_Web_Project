@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+#Инструкция:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##Перед запуском должен быть установлен Node.js (На официальном сайте nodejs.org).
 
-Currently, two official plugins are available:
+##Запуск программы:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. На главной странице GitHub скопировать Url-адрес
+2. В своём редакторе кода открыть терминал и указать путь, где будет расположен проект (команда: cd "Корневой путь к расположению файла")
+3. В терминале ввести команду git clone "url-адрес"
+4. Командой cd указать путь до файла
+5. В терминале прописать команду "npm install" для установки пакетов и библиотек Node,React,TypeScript
+6. В терминале прописать команду "npm run dev" для запуска программы
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#Разработчики Герцок Данил и Захарчук Святослав
 
-## Expanding the ESLint configuration
+Герцок Данил работал над:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Аpp.tsx, в нём написан код, который при заходе на сайт делает двух секундную загрузку, показывая файл LoadingScreen и
+при лайке и дизлайке показывает следующего пользователя.
+2. Header.tsx + css. В нём прописан логотип, который стилизуется в файле css.
+3. LoadingScreen.tsx + css, В tsx прописана структура загрузочного экрана, а в css его стилизация. LoadingScreen 
+используется для начальной загрузки на сайт.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Захарчук Святослав работал над:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Также с App.tsx 
+2. App.css в котором стилизация всего содержимого в карточке, заднего фона и основного шрифта на всю страницу.
+3. ProfileMemberCardProps, в нём карточка, которая содержит информацию о пользователе.
+4. FakeData, в нём хранятся объекты, в которых информация о пользователе. Информация передаётся в файл ProfileMemberCardProps.
