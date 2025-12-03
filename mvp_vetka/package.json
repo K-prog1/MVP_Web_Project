@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "start": "start chrome http://localhost:5173 & vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
