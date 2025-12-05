@@ -11,7 +11,7 @@ const LoadingScreen: React.FC = () => {
 
                         <path
                             d="M 20 20 Q 20 50, 400 0 L 300 200 L 100 200 Z"
-                            fill="#ffa600"
+                            fill="#ffbe45"
                             
                         />
 

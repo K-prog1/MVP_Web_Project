@@ -1,7 +1,8 @@
 /** Style_profile-card **/
 
 body {
-    background-color: #dddbdb;
+    background: #fccff0;
+    background: linear-gradient(90deg,rgba(252, 207, 240, 1) 0%, rgba(255, 255, 255, 1) 35%, rgba(200, 190, 232, 1) 70%, rgba(222, 197, 210, 1) 100%);
     font-family: Arial, sans-serif;
 }
 
@@ -12,30 +13,55 @@ body {
 }
 
 .main-content {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  height: 670px;
+  border: 6px solid black;
+  border-radius: 60px;
+  height: 850px;
   text-align: center;
   box-shadow: 0 1px 5px rgb(0, 0, 0);
   background-color: #fff;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.main-content::before {
+  border: 5px solid rgb(220, 40, 220);
+  border-radius: 60px;
+  content: '';
+  z-index: -1 ;
+  width: 500px;
+  height: 855px;
+  position: absolute;
 }
 
 .profile-inform {
-    text-align: left;
-    padding: 30px 20px 30px 60px;
+    text-align: center;
+    padding: 0px 20px; 
     height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(116, 116, 116);
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+}
+
+.profile-elements {
+    margin-bottom: -20px;
+    pointer-events: none;
 
 }
 
-.profile-elenments {
-    margin-bottom: 20px;
+.profile-inform h2 {
+  color: black;
 }
+
 
 .profile-card img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: fill;
+  width: 400px;
+  height: 400px;
+  border-radius: 10%;
+  object-fit: cover;
   margin-bottom: 15px;
   margin-top: 40px;
 }
@@ -44,39 +70,42 @@ body {
 
 .actions button {
   margin: 0 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  padding: 10px 50px;
+  border-color: rgb(222, 222, 222);
+  border-radius:8px;
   cursor: pointer;
   font-size: 16px;
-}
-
-.actions button:first-child {
-  background-color: #ff4444;
-  color: white;
-}
-
-.actions :first-child:hover {
-    background-color: #d92c2c;
-    color: #e5e4e4;
-}
-
-.actions :first-child:active {
-  background-color: #ff4444;
-  color: white;
+  font-weight: 600;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .actions button:last-child {
-  background-color: #19bf1d;
-  color: rgb(255, 255, 255);
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
 }
 
 .actions :last-child:hover {
-    background-color: #118113;
-    color: rgb(255, 255, 255);
+    background-color: #868686;
+    color: #e5e4e4;
 }
 
 .actions :last-child:active {
-    background-color: #2bbd2f;
+  background-color: #4a4a4a;
+  color: white;
+}
+
+.actions button:first-child {
+  background-color: #6c5ce7;
+  color: rgb(255, 255, 255);
+}
+
+.actions :first-child:hover {
+    background-color: #5d4dc4;
+    color: rgb(255, 255, 255);
+}
+
+.actions :first-child:active {
+    background-color: #493c9a;
     color: rgb(255, 255, 255);
 }

@@ -45,27 +45,27 @@ body {
 .inner-square::before {
   text-align: center;
   content:"";
-  font-size: 30px;
+  font-size: 20px;
   color:black;
   height: 50%;
   width: 50%;
-  border-radius: 90% 90% 60% 60%;
+  border-radius: 51% 49% 45% 55% / 66% 70% 30% 34% ;
   box-shadow: black 1px 1px;
-  background-color: #ffa600;
+  background-color: #ffbe45;
   z-index: 1;
 }
 
-
-
 .loading-text {
-  font-size: 300%;
-  font-family: 'Open Sans';
-  margin: 0 auto ;
+  font-size: 350%;
+  text-align: center;
+  justify-content: center;
+  padding-top: 20px;
   color:white;
   text-shadow: black 1px 1px;
 }
+
 .dollar-sign {
-  font-size: 200%;
+  font-size: 250%;
   position:absolute;
   left:51%;
   top:50%;

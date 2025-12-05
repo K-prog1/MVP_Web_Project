@@ -21,26 +21,30 @@ export const ProfileMemberCard: React.FC<ProfileMemberCardProps> = ({
     return (
         <div className = "profile-card">
                 <img src = {memberdata.image} alt = "Image not loaded"></img>
-                <h2>{memberdata.name}, {memberdata.age}</h2>
-                <div className = 'profile-inform'>
-                    <div className = 'profile-elenments'>
-                        <p><strong>Компания: </strong>{memberdata.role}</p>
-                    </div>
-                    <div className = 'profile-elenments'>
-                        <p><strong>Интересы: </strong>{memberdata.interests}</p>
-                    </div>
-                    <div className = 'profile-elenments'>
-                        <p><strong>Обо мне: </strong>{memberdata.about}</p>
-                    </div>
-                </div>
+                
                 <div className = 'actions'>
-                        <button onClick={onDislike}>
-                            Дизлайк
-                        </button>
                         <button onClick={onLike}>
-                            Лайк
+                            ♡  Сохранить
                         </button>
+                        <button onClick={onDislike}>
+                           ⟶  Дальше 
+                        </button>
+                        
                 </div>
+                
+                <div className = 'profile-inform'>
+                    <h2 className="DataAndAge">{memberdata.name}, {memberdata.age}</h2>
+                    <div className = 'profile-elements'>
+                        <p>{memberdata.role}</p>
+                    </div>
+                    <div className = 'profile-elements'>
+                        <p>{memberdata.interests}</p>
+                    </div>
+                    <div className = 'profile-elements'>
+                        <p>{memberdata.about}</p>
+                    </div>
+                </div>
+                
         </div>
     )
 }

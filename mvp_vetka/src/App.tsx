@@ -3,7 +3,7 @@ import { ProfileMemberCard } from './ProfileMemberCardProps';
 import { membersdata, type MemberData } from './FakeData';
 import './App.css';
 import LoadingScreen from './LoadingScreen';
-import Header from './Header';
+
 
 function App() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -32,12 +32,12 @@ function App() {
 
     return (
         <div className="app">
-            <Header />
             <main className="main-content">
                     <ProfileMemberCard 
                         memberdata={users[currentIndex]}
-                        onLike={handleLike} 
                         onDislike={handleDislike}
+                        onLike={handleLike} 
+                        
                     />
               </main>
           </div>
