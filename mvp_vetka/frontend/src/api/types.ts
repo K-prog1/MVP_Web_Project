@@ -14,12 +14,9 @@ export interface ApiUser {
 }
 
 export interface RegisterRequest {
-  full_name: string;
   email: string;
   password: string;
-  company?: string;
-  position?: string;
-  phone?: string;
+
 }
 
 export interface LoginRequest {

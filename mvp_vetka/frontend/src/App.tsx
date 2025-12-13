@@ -5,7 +5,7 @@ import LoadingScreen from './LoadingScreen';
 import RegisterForm from './components/auth/RegisterForm';
 import LoginForm from './components/auth/LoginForm';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
-import { ApiUser } from './api/types';
+import type { ApiUser } from './api/types';
 import { usersAPI } from './api/users';
 import { membersdata } from './FakeData';
 

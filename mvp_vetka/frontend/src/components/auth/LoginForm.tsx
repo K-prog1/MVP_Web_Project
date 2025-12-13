@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
     try {
       const response = await authAPI.login({
         email: formData.email,
-        password: formData.password,
+        password: formData.password
       });
 
       // Сохраняем токен и данные пользователя

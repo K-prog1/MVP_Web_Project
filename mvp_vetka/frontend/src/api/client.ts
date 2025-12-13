@@ -1,22 +1,24 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = '/api';
 
 const apiClient = axios.create({
   baseURL: API_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
+  withCredentials: true,
 });
 
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token && config.headers) {
-
-    if (config.url?.includes('/feed') || config.url?.includes('/likes')) {
-      config.params = { ...config.params, token };
-    }
+    config.headers['Access-Control-Allow-Origin'] = '*';
+    config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
+    config.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
+    config.headers.Authorization = 'Bearer ${token}';
   }
   return config;
 });
