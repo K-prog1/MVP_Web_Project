@@ -1,274 +1,117 @@
-from fastapi import FastAPI, HTTPException
+import uvicorn
+from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Optional
 from datetime import datetime
-
+from registration.users import users_db, liked_db
+from registration.schemas import LikeCreate
+from registration.crud import router as router_reg_log
 
 app = FastAPI(title="VETKA API", version="1.0")
+app.include_router(router_reg_log, tags=["Reg_Log_User"])
 
 app.add_middleware(
-    CORSMiddleware,    allow_origins=["*"],
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class UserRegister(BaseModel):
-    full_name: str
-    email: str
-    password: str
-    company: Optional[str] = None
-    position: Optional[str] = None
-    phone: Optional[str] = None
-
-class UserLogin(BaseModel):
-    email: str
-    password: str
-
-class LikeCreate(BaseModel):
-    to_user_id: int
-    is_like: bool = True
-
-users_db = []
-liked_db = []
-current_id = 5
-
-
-test_users = [
-    {
-        "id": 1,
-        "full_name": "Александр",
-        "email": "alex@example.com",
-        "password": "123", 
-        "company": "Свой бизнес",
-        "position": "Предприниматель",
-        "interests": "Финансы и прибыль",
-        "bio": "Усердный, читаю много книг.",
-        "avatar_url": "http://localhost:8000/static/photo_1.jpg",
-        "age": 23,
-        "created_at": "2024-01-15T10:00:00"
-    },
-    {
-        "id": 2,
-        "full_name": "Саша",
-        "email": "sasha@example.com",
-        "password": "123", 
-        "company": "ИТ компания",
-        "position": "Программист",
-        "interests": "Программирование на 1C",
-        "bio": "Программирую на 1C полтора года.",
-        "avatar_url": "http://localhost:8000/static/photo_2.jpg",
-        "age": 27,
-        "created_at": "2024-01-16T11:00:00"
-    },
-    {
-        "id": 3,
-        "full_name": "Сергей",
-        "email": "sergey@example.com",
-        "password": "123",  
-        "company": "Энергетическая компания",
-        "position": "Электрик",
-        "interests": "Устраивать взрывы",
-        "bio": "Недавно закончил учёбу. Без опыта.",
-        "avatar_url": "http://localhost:8000/static/photo_3.jpg",
-        "age": 35,
-        "created_at": "2024-01-17T12:00:00"
-    },
-    {
-        "id": 4,
-        "full_name": "Антон",
-        "email": "anton@example.com",
-        "password": "123",  
-        "company": "Машиностроительный завод",
-        "position": "Инженер",
-        "interests": "3D-моделирование и прототипирование",
-        "bio": "Инженер-конструктор с 7-летним опытом в машиностроении.",
-        "avatar_url": "http://localhost:8000/static/photo_4.jpg",
-        "age": 30,
-        "created_at": "2024-01-18T13:00:00"
-    }
-]
-
-users_db.extend(test_users)
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Vetka Api, работает!", "users_count": len(users_db)}
-
-
-@app.post("/api/auth/register")
-
-def register(user_data: UserRegister):
-    global current_id
-
-    if any(u["email"] == user_data.email for u in users_db):
-        raise HTTPException(status_code=400, detail="Email уже зарегистрирован")
-
-    new_user = {
-        "id": current_id,
-        "full_name": user_data.full_name,
-        "email": user_data.email,
-        "password": user_data.password, 
-        "company": user_data.company or "",
-        "position": user_data.position or "",
-        "interests": None,
-        "bio": None,
-        "avatar_url": "./frontend/src/assets/default_avatar.png",
-        "age": 0,
-        "created_at": datetime.now().isoformat()
-    }
-
-    users_db.append(new_user)
-    current_id += 1
-
-    token = f"vetka-token-{new_user['id']}"
-
-    return {
-        "access_token": token,
-        "token_type": "bearer",
-        "user": {
-            "id": new_user["id"],
-            "full_name": new_user["full_name"],
-            "email": new_user['email'],
-            "company": new_user["company"],
-            "position": new_user["position"]
-        }
-    }
-
-
-@app.post("/api/auth/login")
-def login(user_data: UserLogin):
-    for user in users_db:
-        if user["email"] == user_data.email:
-            if user["password"] != user_data.password:
-                raise HTTPException(status_code=401, detail="Неверно введены учетные данные")
-            token = f"vetka-token-{user['id']}"
-            return {
-                "access_token": token,
-                "token_type": "bearer",
-                "user": {
-                    "id": user["id"],
-                    "full_name": user["full_name"],
-                    "email": user["email"],
-                    "company": user["company"],
-                    "position": user["position"]
-                }
-            }
-    raise HTTPException(status_code=401, detail="Неверно введены учетные данные")
-
+def get_current_user_id(authorization: str = Header(None)):
+    if not authorization or not authorization.startswith("Bearer vetka-token-"):
+        raise HTTPException(status_code=401, detail="Неавторизован")
+    
+    try:
+        token = authorization.split(" ")[1]  
+        user_id = int(token.split("-")[-1])
+        return user_id
+    except (ValueError, IndexError, KeyError):
+        raise HTTPException(status_code=401, detail="Неверный формат токена")
 
 @app.get("/api/auth/me")
-def get_current_user(token: str = ""):
-    if not token or not token.startswith("vetka-token-"):
-        raise HTTPException(status_code=401, detail="Введен неверный токен")
+def get_current_user(authorization: str = Header(None)):
+    user_id = get_current_user_id(authorization)
     
-    try:
-        user_id = int(token.split("-")[-1])  
-        user = next((u for u in users_db if u["id"] == user_id), None)
-        if user:
-            return {
-                "id": user["id"],
-                "full_name": user["full_name"],
-                "email": user["email"],
-                "company": user["company"],
-                "position": user["position"]
-            }
-    except (ValueError, IndexError, KeyError): 
-
-        raise HTTPException(status_code=401, detail="Пользователь не найден")
-
-
-@app.get("/api/users/feed")
-def get_feed(token: str = "", page: int = 1, limit: int = 10):
-    if not token or not token.startswith("vetka-token-"):
-        raise HTTPException(status_code=401, detail="Неавторизован")
-    try:
-        current_user_id = int(token.split("-")[-1])
-
-        liked_ids = [like["to_user_id"] for like in liked_db
-                     if like["from_user_id"] == current_user_id]
-
-        filtered_users = [
-            user for user in users_db
-            if user["id"] != current_user_id
-            and user["id"] not in liked_ids
-        ]
-
-        start = (page - 1) * limit
-        end = start + limit
-        paginated_users = filtered_users[start:end]
-
-        return {
-            "users": paginated_users,
-            "page": page,
-            "has_more": end < len(filtered_users),
-            "total": len(filtered_users)
-        }
-
-    except (ValueError, IndexError):
-        raise HTTPException(status_code=400, detail="Ошибка получения ленты")
-
+    user = next((u for u in users_db if u["id"] == user_id), None)
+    if not user:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+    
+    return {
+        "id": user["id"],
+        "full_name": user["full_name"],
+        "email": user["email"],
+        "company": user["company"],
+        "position": user["position"]
+    }
 
 @app.post("/api/likes")
-def create_like(like_data: LikeCreate, token: str = ""):
-    if not token or not token.startswith("vetka-token-"):
-        raise HTTPException(status_code=401, detail="Неавторизован")
+def create_like(like_data: LikeCreate, authorization: str = Header(None)):
+    from_user_id = get_current_user_id(authorization)
     
-    try:
-        from_user_id = int(token.split("-")[-1])
+    if not any(u["id"] == like_data.to_user_id for u in users_db):
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
 
-        if not any(u["id"] == like_data.to_user_id for u in users_db):
-            raise HTTPException(status_code=404, detail="Пользователь не найден")
+    liked_db.append({
+        "id": len(liked_db) + 1,
+        "from_user_id": from_user_id,
+        "to_user_id": like_data.to_user_id,
+        "is_like": like_data.is_like,
+        "created_at": datetime.now().isoformat()
+    })
 
-        liked_db.append({
-            "id": len(liked_db) + 1,
-            "from_user_id": from_user_id,
-            "to_user_id": like_data.to_user_id,
-            "is_like": like_data.is_like,
-            "created_at": datetime.now().isoformat()
-        })
+    mutual = any(
+        like["from_user_id"] == like_data.to_user_id 
+        and like["to_user_id"] == from_user_id
+        and like["is_like"] is True
+        for like in liked_db
+    )
+    
+    return {
+        "success": True,
+        "action": "like" if like_data.is_like else "dislike",
+        "matched": mutual
+    }
 
-        mutual = any(
-            like["from_user_id"] == like_data.to_user_id 
-            and like["to_user_id"] == from_user_id
-            and like["is_like"] is True
-            for like in liked_db
-        )
-        
-        return {
-            "success": True,
-            "action": "like" if like_data.is_like else "dislike",
-            "matched": mutual
-        }
-    except (ValueError, IndexError):
-        raise HTTPException(status_code=400, detail="Ошибка при обработке лайка")
+@app.get("/api/users/feed")
+def get_feed(authorization: str = Header(None), page: int = 1, limit: int = 10):
+    current_user_id = get_current_user_id(authorization)
 
+    liked_ids = [
+        like["to_user_id"] for like in liked_db
+        if like["from_user_id"] == current_user_id
+    ]
+
+    filtered_users = [
+        user for user in users_db
+        if user["id"] != current_user_id
+        and user["id"] not in liked_ids
+    ]
+
+    start = (page - 1) * limit
+    end = start + limit
+    paginated_users = filtered_users[start:end]
+
+    return {
+        "users": paginated_users,
+        "page": page,
+        "has_more": end < len(filtered_users),
+        "total": len(filtered_users)
+    }
 
 @app.get("/api/likes/my-likes")
-def get_my_likes(token: str = ""):
-    if not token or not token.startswith("vetka-token-"):
-        raise HTTPException(status_code=401, detail="Неавторизован")  
+def get_my_likes(authorization: str = Header(None)):
+    user_id = get_current_user_id(authorization)
 
-    try:
-        user_id = int(token.split("-")[-1])
+    liked_user_ids = [
+        like["to_user_id"] for like in liked_db
+        if like["from_user_id"] == user_id and like["is_like"] is True
+    ]
 
-        liked_user_ids = [
-            like["to_user_id"] for like in liked_db
-            if like["from_user_id"] == user_id and like["is_like"] is True
-        ]
-
-        liked_users = [
-            user for user in users_db
-            if user["id"] in liked_user_ids
-        ]
-        return liked_users
-
-    except (ValueError, IndexError):
-        raise HTTPException(status_code=400, detail="Ошибка получения лайков")
-
+    liked_users = [
+        user for user in users_db
+        if user["id"] in liked_user_ids
+    ]
+    return liked_users
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=True)

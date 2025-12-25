@@ -7,7 +7,7 @@ import photo_4 from "./static/photo_4.jpg"
 export interface MemberData  {
     id:number
     interests:string;
-    image:string; //укажем здесь путь изображения
+    image:string;
     name:string;
     age:number;
     role:string;

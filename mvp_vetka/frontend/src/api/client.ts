@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = '/api';
+const API_URL = import.meta.env.DEV 
+  ? 'http://localhost:8000/api' 
+  : '/api';
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -15,10 +17,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token && config.headers) {
-    config.headers['Access-Control-Allow-Origin'] = '*';
-    config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
-    config.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
-    config.headers.Authorization = 'Bearer ${token}';
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
