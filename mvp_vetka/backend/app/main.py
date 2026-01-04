@@ -8,7 +8,6 @@ from registration.crud import router as router_reg_log
 
 app = FastAPI(title="VETKA API", version="1.0")
 app.include_router(router_reg_log, tags=["Reg_Log_User"])
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
