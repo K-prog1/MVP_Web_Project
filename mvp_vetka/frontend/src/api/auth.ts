@@ -18,7 +18,7 @@ export interface LoginData {
 export const authAPI = {
   register: (data: RegisterData) => 
     apiClient.post('/auth/register', data),
-    
+  
   login: (data: LoginData) => 
     apiClient.post('/auth/login', data),
     

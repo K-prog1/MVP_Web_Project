@@ -11,8 +11,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        // Для MVP проверяем только наличие токена
-        // В реальном приложении нужно проверять на сервере
         setIsAuthenticated(!!token);
     }, []);
 

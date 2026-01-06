@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../../api/auth';
+import type { AxiosError } from 'axios'; // ← импорт типа
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setLoading(true);
     setError('');
 
@@ -23,14 +23,26 @@ const LoginForm: React.FC = () => {
         password: formData.password
       });
 
-      // Сохраняем токен и данные пользователя
-      localStorage.setItem('token', response.data.access_token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      // 🔥 ЛОГИ ДЛЯ ОТЛАДКИ
+      console.log('✅ Ответ от бэка:', response.data);
+      console.log('🔑 Токен в ответе:', response.data.token);
 
-      // Переходим в ленту (или на главную)
-      navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.detail || 'Ошибка входа');
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      console.log('💾 Токен сохранён в localStorage:', token);
+      
+      navigate('/feed');
+    } catch (err) {
+      if ((err as AxiosError).response) {
+        const errorResponse = (err as AxiosError).response;
+        setError((err as any).response?.data?.detail || 'Ошибка входа');
+        console.error(' Данные ошибки:', errorResponse?.data);
+      } else {
+        setError('Ошибка сети');
+        console.error(' Неизвестная ошибка:', err);
+      }
     } finally {
       setLoading(false);
     }
