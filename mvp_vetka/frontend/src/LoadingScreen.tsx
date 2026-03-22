@@ -3,7 +3,7 @@ import './LoadingScreen'
 
 const LoadingScreen: React.FC = () => {
     return (
-        <body>
+        <React.Fragment>
             <div className='loading-screen'>
                 <div className = 'loading-logo'>
                     <div className='inner-square'> 
@@ -19,8 +19,8 @@ const LoadingScreen: React.FC = () => {
                         d="M 90 200 Q 200 230, 320 200" 
                         fill="none" 
                         stroke="#000000" 
-                        stroke-width="30" 
-                        stroke-linecap="round" 
+                        strokeWidth="30" 
+                        strokeLinecap="round" 
                         />
                     </svg>
                         <div className='dollar-sign'><strong>$</strong></div>
@@ -28,7 +28,7 @@ const LoadingScreen: React.FC = () => {
                 </div>
                 <div className = 'loading-text'> <strong>VETKA</strong> </div>
             </div>
-        </body>
+        </React.Fragment>
     );
 };
 
