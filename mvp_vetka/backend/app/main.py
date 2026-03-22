@@ -1,4 +1,4 @@
-# import uvicorn
+import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
