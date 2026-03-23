@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../../api/auth';
-import type { AxiosError } from 'axios'; // ← импорт типа
+import type { AxiosError } from 'axios'; 
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -22,16 +22,14 @@ const LoginForm: React.FC = () => {
         email: formData.email,
         password: formData.password
       });
-
-      // 🔥 ЛОГИ ДЛЯ ОТЛАДКИ
-      console.log('✅ Ответ от бэка:', response.data);
-      console.log('🔑 Токен в ответе:', response.data.token);
+      console.log(' Ответ от бэка:', response.data);
+      console.log(' Токен в ответе:', response.data.token);
 
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      console.log('💾 Токен сохранён в localStorage:', token);
+      console.log('Токен сохранён в localStorage:', token);
       
       navigate('/feed');
     } catch (err) {

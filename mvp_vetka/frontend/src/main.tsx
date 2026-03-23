@@ -6,7 +6,6 @@ import "./api/Auth.css"
 import "./LoadingScreen.css"
 
 
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App/>

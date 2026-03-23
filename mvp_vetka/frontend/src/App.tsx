@@ -39,7 +39,7 @@ function App() {
             console.error('API Error:', err);
 
             setUsers(convertToApiUsers(membersdata));
-            setError('Бэкенд не доступен. Используются демо-данные.');
+            setError('Бэкенд не доступен.');
         } finally {
             setIsLoading(false);
         }
