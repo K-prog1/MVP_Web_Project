@@ -151,7 +151,7 @@ function App() {
                         memberdata={{
                             id: currentUser.id,
                             name: currentUser.full_name,
-                            image: currentUser.avatar_url || '/default-avatar.jpg',
+                            image: currentUser.avatar_url || './images.jpg',
                             age: currentUser.age || 25,
                             role: currentUser.position || 'Участник',
                             interests: currentUser.interests || 'Не указано',
@@ -160,10 +160,10 @@ function App() {
                         onDislike={handleDislike}
                         onLike={handleLike}>
                     </ProfileMemberCard>
-                    <div className='feed-counter'>
-                        Осталось: {users.length} пользователей
-                    </div>
                 </main>
+                <div className='feed-counter'>
+                        Осталось: {users.length} пользователей
+                </div>
                 {showMatchModal && matchedUser && (
                     <div className='match-modal-overlay'>
                         <div className="match-modal">
